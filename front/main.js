@@ -151,14 +151,16 @@ async function saveEditedPost(){
 }
 
 async function searchPost(){
-  searchBar.classList.toggle("hidden");
+  if(!searchBar.classList.toggle("nav__searchBar--shown"))
+    searchBar.style.transition = "unset";  
+  else
+    searchBar.style.transition =  "all .5s ease-out";
+
   searchBar.focus();
-  if(searchBar.classList.contains("hidden")){
+  if(!searchBar.classList.contains("nav__searchBar--shown")){
     const match = searchBar.value;
   
     const response = await fetch(`${API}/posts/${match}`);
-    console.log(response);
-
     data = await response.json();
     refresh(false);
     searchBar.value = "";

@@ -30,25 +30,8 @@ button, a{
   background: var(--bg-color);
   min-height: 100vh;
   padding: 1rem;
-  font-size: 1.rem;
 }
 
-.nav{
-  height: 53px;
-  padding: 1em;
-  background: var(--dark-color);
-  display: flex;
-  max-width: 340px;
-  border-radius: 50px;
-  justify-content: space-between;
-  margin: 0 auto;
-  margin-bottom: 1em;
-}
-
-.nav i{
-  font-size: 1.3rem;
-  color: white;
-}
 
 .posts {
   display: flex;

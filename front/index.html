@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="navbar.css">
     <title>Document</title>
     <script defer src="main.js"></script>
   </head>
@@ -20,15 +21,11 @@
       <button class="nav__button nav__button--main" onclick="showCreatePost()">
         <i id="mainButton" class="fas fa-plus"></i>
       </button>
-      <input type="text" class="nav__searchBar hidden" placeholder="pesquise algo"/>
+      <input style="transform: scaleX(0)" type="text" class="nav__searchBar" placeholder="pesquise algo"/>
       <button class="nav__button nav__button--search" onclick="searchPost()">
         <i class="fas fa-search"></i>
       </button>
     </nav>  
-
-    <p class="noPost hidden">Nenhum post encontrado 😢</p>
-    <div class="posts">
-    </div>
 
     <div class="createPost hidden">
       <input type="text" placeholder="Insira o titulo" class="createPost__title"/>
@@ -58,6 +55,10 @@
         <button onclick="cancelEdit()">Cancel</button>
         <button onclick="saveEditedPost()">Salvar</button>
       </div>
+    </div>
+
+    <p class="noPost hidden">Nenhum post encontrado 😢</p>
+    <div class="posts">
     </div>
 
   </body>

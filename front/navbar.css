@@ -1,0 +1,30 @@
+.nav {
+    height: 53px;
+    padding: 1em;
+    background: var(--dark-color);
+    display: flex;
+    max-width: 340px;
+    border-radius: 50px;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    overflow-x: hidden;
+}
+  
+.nav i {
+    font-size: 1.3rem;
+    color: white;
+    margin: 0 .5em;
+}
+
+.nav__searchBar {
+    transition: all 1s ease-out;
+    transform-origin: left;
+    position: absolute;
+}
+
+
+.nav__searchBar--shown {
+    transform: scaleX(1)!important;
+    position: unset;
+}
