@@ -22,10 +22,14 @@ module.exports = {
     }
   },
   show: async (req, res) => {
-    const { id } = req.params;
+    const { match } = req.params;
+    const pattern = new RegExp(`${match}`, "ig");
 
     try {
-      const foundRegistry = await Post.findById(id);
+      const foundRegistry = await Post.find({
+        $or: [{name: {$regex: pattern}}, {description: {$regex: pattern}}]
+      });
+
       res.json(foundRegistry);
     } catch (err) {
       res.status(400).send(err);

@@ -1,0 +1,174 @@
+:root{
+  --bg-color: rgb(65, 219, 117);
+  --dark-color: rgb(39, 39, 23);
+  --white-color: rgb(245, 248, 253);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul{
+  list-style: none;
+}
+
+button, a{
+  cursor: pointer;
+}
+
+.spinner{
+  position: absolute;
+  top: 50%;  
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.app {
+  background: var(--bg-color);
+  min-height: 100vh;
+  padding: 1rem;
+  font-size: 1.rem;
+}
+
+.nav{
+  height: 53px;
+  padding: 1em;
+  background: var(--dark-color);
+  display: flex;
+  max-width: 340px;
+  border-radius: 50px;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-bottom: 1em;
+}
+
+.nav i{
+  font-size: 1.3rem;
+  color: white;
+}
+
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.post {
+  color: rgb(39, 39, 23);
+  flex-grow: 1;
+  background: var(--white-color);
+  border-radius: 1em;
+  padding: 1em;
+  position: relative;
+  width: 30%;
+  min-width: 200px;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.15);
+}
+
+.post__header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.post__title {
+  font-size: 1.4rem;
+  margin-right: .5rem;
+}
+
+.post__description {
+  text-indent: 1em;
+  text-align: justify;
+}
+
+.post__date {
+  font-style: italic;
+  font-size: .8em;
+  align-self: flex-end;
+}
+
+.post__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.post__icons{
+  min-width: 2.2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.post__deleteBtn, .nav__button {
+  background: transparent;
+  border: none;
+}
+
+.post__deleteBtn .fas {
+  color: var(--dark-color);
+}
+
+.createPost, .editPost{ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.createPost__title, .editPost__title{
+  font-size: min(1.5rem, 6vw);
+  width: 100%;
+  padding: 5px;
+}
+
+.createPost__desc, .editPost__desc{
+  width: 100%;
+  max-width: 100%;
+  font-size: 1.3rem;
+}
+
+.createPost__buttons, .editPost__buttons {
+  margin-top: 1em;
+}
+
+.createPost__buttons button, .editPost__buttons button  {
+  background: var(--dark-color);
+  color: var(--white-color);
+  border: none;
+  width: 80px;
+  padding: .5rem;
+  border-radius: .5rem;
+  font-weight: bold;
+}
+
+.noPost {
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 1.2em;
+  padding: 1em 0;
+  text-align: center;
+}
+
+i:hover{
+  opacity: .8;
+}
+
+.post:hover{
+  box-shadow: 2px 2px 0px 0 rgba(0, 0, 0, 0.15);
+}
+
+.hidden {
+  display: none;
+}

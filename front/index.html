@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+    <script defer src="main.js"></script>
+  </head>
+  <script
+    src="https://kit.fontawesome.com/4eff692f52.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <body class="app">
+    <nav class="nav">
+      <button class="nav__button nav__button--refresh" onclick="refresh()">
+        <i class="fas fa-sync"></i>
+      </button>
+      <button class="nav__button nav__button--main" onclick="showCreatePost()">
+        <i id="mainButton" class="fas fa-plus"></i>
+      </button>
+      <input type="text" class="nav__searchBar hidden" placeholder="pesquise algo"/>
+      <button class="nav__button nav__button--search" onclick="searchPost()">
+        <i class="fas fa-search"></i>
+      </button>
+    </nav>  
+
+    <p class="noPost hidden">Nenhum post encontrado 😢</p>
+    <div class="posts">
+    </div>
+
+    <div class="createPost hidden">
+      <input type="text" placeholder="Insira o titulo" class="createPost__title"/>
+      <textarea
+        rows="5"
+        cols="33"
+        class="createPost__desc"
+        placeholder="Insira o conteúdo"
+      ></textarea>
+
+      <div class="createPost__buttons">
+        <button onclick="handleCancel()">Cancel</button>
+        <button onclick="addPost()">Postar</button>
+      </div>
+    </div>
+
+    <div class="editPost hidden">
+      <input type="text" placeholder="Insira o titulo" class="editPost__title"/>
+      <textarea
+        rows="5"
+        cols="33"
+        class="editPost__desc"
+        placeholder="Insira o conteúdo"
+      ></textarea>
+
+      <div class="editPost__buttons">
+        <button onclick="cancelEdit()">Cancel</button>
+        <button onclick="saveEditedPost()">Salvar</button>
+      </div>
+    </div>
+
+  </body>
+</html>
