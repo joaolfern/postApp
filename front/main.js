@@ -11,6 +11,8 @@ const editPostDesc = document.querySelector(".editPost__desc");
 const searchBar = document.querySelector(".nav__searchBar");
 const noPost = document.querySelector(".noPost");
 
+const deleteButtons = document.querySelectorAll(".post__btn--delete")
+
 const API = "http://localhost:3000";
 let data;
 let editId;
@@ -18,17 +20,17 @@ let editId;
 refresh();
 
 async function fetchData() {
-  try{
+  try {
     const response = await fetch(`${API}/posts`, {
       mode: 'cors',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
     });
     data = await response.json()
-  }catch(e){
+  } catch (e) {
     console.log(e);
     alert("Não é possível se conectar ao servidor");
   }
-  
+
 }
 
 function genPosts() {
@@ -39,10 +41,10 @@ function genPosts() {
               <div class="post__header">
               <h1 class="post__title">${post.name}</h1>
               <div class="post__icons">
-                <button class="post__deleteBtn" onclick="deletePost('${post["_id"]}')">
+                <button class="post__btn post__btn--delete" onclick="deletePost('${post["_id"]}')">
                   <i class="fas fa-trash"></i>
                 </button>
-                <button class="post__deleteBtn" onclick="editPost('${post.name}', '${post.description}', '${post["_id"]}')">
+                <button class="post__btn" onclick="editPost('${post.name}', '${post.description}', '${post["_id"]}')">
                   <i class="fas fa-pen"></i>
                 </button>
               </div>     
@@ -59,38 +61,38 @@ function genPosts() {
 }
 
 async function refresh(fetch = true) {
-  if(fetch)
+  if (fetch)
     await fetchData();
-  
+
   document.title = `Postagens (${data.length})`;
   postsContainer.innerHTML = genPosts();
 
-  if(data.length == 0){
+  if (data.length == 0) {
     noPost.classList.remove("hidden");
   }
-  if(data.length != 0){
+  if (data.length != 0) {
     noPost.classList.add("hidden");
   }
 
 }
 
-async function addPost(){
+async function addPost() {
   const title = newPostTitle.value;
   const desc = newPostDesc.value;
-  
+
   const body = {
     name: title,
     description: desc.split('\n')
-    .join('<br>')
+      .join('<br>')
   };
 
   const response = await fetch(`${API}/posts/`, {
     method: "POST",
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
 
-  if(response.status !== 200){
+  if (response.status !== 200) {
     alert("Entrada inválida");
     return
   }
@@ -102,18 +104,18 @@ async function addPost(){
   newPostDesc.value = "";
 }
 
-async function deletePost(id){
-  if(window.confirm("Deletar Post?")){
+async function deletePost(id) {
+  if (window.confirm("Deletar Post?")) {
     const response = await fetch(`${API}/posts/${id}`, {
       method: "DELETE",
     });
-  
+
     data = data.filter(post => post["_id"] != id);
     refresh(false);
   }
 }
 
-function editPost(name, desc, id){
+function editPost(name, desc, id) {
   editPostContainer.classList.remove("hidden");
   postsContainer.classList.add("hidden");
   editPostTitle.value = name;
@@ -124,7 +126,7 @@ function editPost(name, desc, id){
   editId = id;
 }
 
-async function saveEditedPost(){
+async function saveEditedPost() {
   const brRefractored = editPostDesc.value
     .split('\n')
     .join('<br>');
@@ -136,11 +138,11 @@ async function saveEditedPost(){
 
   const response = await fetch(`${API}/posts/${editId}`, {
     method: "PATCH",
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
 
-  if(response.status !== 200){
+  if (response.status !== 200) {
     alert("Erro");
     console.log(response);
     return
@@ -150,16 +152,16 @@ async function saveEditedPost(){
   refresh();
 }
 
-async function searchPost(){
-  if(!searchBar.classList.toggle("nav__searchBar--shown"))
-    searchBar.style.transition = "unset";  
+async function searchPost() {
+  if (!searchBar.classList.toggle("nav__searchBar--shown"))
+    searchBar.style.transition = "unset";
   else
-    searchBar.style.transition =  "all .5s ease-out";
+    searchBar.style.transition = "all .5s ease-out";
 
   searchBar.focus();
-  if(!searchBar.classList.contains("nav__searchBar--shown")){
+  if (!searchBar.classList.contains("nav__searchBar--shown")) {
     const match = searchBar.value;
-  
+
     const response = await fetch(`${API}/posts/${match}`);
     data = await response.json();
     refresh(false);
@@ -167,86 +169,85 @@ async function searchPost(){
   }
 }
 
-function getDate(dateString){
+function getDate(dateString) {
   const date = new Date(dateString);
   const now = new Date(Date.now());
 
   const diff = getTimeDiff(date, now);
 
   return diff.days ? `${diff.days} days`
-   : diff.hours ? `${diff.hours} hours`
-   : diff.minutes ? `${diff.minutes} min`
-   : `${diff.seconds} sec`
+    : diff.hours ? `${diff.hours} hours`
+      : diff.minutes ? `${diff.minutes} min`
+        : `${diff.seconds} sec`
 
 }
 
-function handleCancel(){
+function handleCancel() {
   emptyInput = newPostTitle.value == "" && newPostTitle.value == "" ? true : false;
-  if(!emptyInput){
-    if(window.confirm("Cancelar?")){
+  if (!emptyInput) {
+    if (window.confirm("Cancelar?")) {
       newPostDesc.value = "";
       newPostTitle.value = "";
       showCreatePost();
     }
     return;
-  } 
+  }
   showCreatePost();
 }
 
-function cancelEdit(){
+function cancelEdit() {
   editPostContainer.classList.add("hidden");
   postsContainer.classList.remove("hidden");
 }
 
 function showCreatePost(screen) {
-  if(createPost.classList.contains("hidden")){
+  if (createPost.classList.contains("hidden")) {
     createPost.classList.remove("hidden");
     postsContainer.classList.add("hidden");
     toggleIcon(true);
   }
-  else{
+  else {
     createPost.classList.add("hidden");
     postsContainer.classList.remove("hidden");
     toggleIcon(false);
   }
 
-  function toggleIcon(newPost = true){
+  function toggleIcon(newPost = true) {
     mainButton.classList.remove(`fa-${newPost ? "plus" : "home"}`);
     mainButton.classList.add(`fa-${newPost ? "home" : "plus"}`)
   }
 }
 
-function getTimeDiff(earlierDate, laterDate) 
-{
-    let oDiff = new Object();
+function getTimeDiff(earlierDate, laterDate) {
+  let oDiff = new Object();
 
-    let nTotalDiff = laterDate.getTime() - earlierDate.getTime();
+  let nTotalDiff = laterDate.getTime() - earlierDate.getTime();
 
-    oDiff.days = Math.floor(nTotalDiff / 1000 / 60 / 60 / 24);
-    nTotalDiff -= oDiff.days * 1000 * 60 * 60 * 24;
+  oDiff.days = Math.floor(nTotalDiff / 1000 / 60 / 60 / 24);
+  nTotalDiff -= oDiff.days * 1000 * 60 * 60 * 24;
 
-    oDiff.hours = Math.floor(nTotalDiff / 1000 / 60 / 60);
-    nTotalDiff -= oDiff.hours * 1000 * 60 * 60;
+  oDiff.hours = Math.floor(nTotalDiff / 1000 / 60 / 60);
+  nTotalDiff -= oDiff.hours * 1000 * 60 * 60;
 
-    oDiff.minutes = Math.floor(nTotalDiff / 1000 / 60);
-    nTotalDiff -= oDiff.minutes * 1000 * 60;
+  oDiff.minutes = Math.floor(nTotalDiff / 1000 / 60);
+  nTotalDiff -= oDiff.minutes * 1000 * 60;
 
-    oDiff.seconds = Math.floor(nTotalDiff / 1000);
+  oDiff.seconds = Math.floor(nTotalDiff / 1000);
 
-    let hourtext = '00';
-    if (oDiff.days > 0){ hourtext = String(oDiff.days);}
-    if (hourtext.length == 1){hourtext = '0' + hourtext};
+  let hourtext = '00';
+  if (oDiff.days > 0) { hourtext = String(oDiff.days); }
+  if (hourtext.length == 1) { hourtext = '0' + hourtext };
 
-    let mintext = '00';
-    if (oDiff.minutes > 0){ mintext = String(oDiff.minutes);}
-    if (mintext.length == 1) { mintext = '0' + mintext };
+  let mintext = '00';
+  if (oDiff.minutes > 0) { mintext = String(oDiff.minutes); }
+  if (mintext.length == 1) { mintext = '0' + mintext };
 
-    let sectext = '00';
-    if (oDiff.seconds > 0) { sectext = String(oDiff.seconds); }
-    if (sectext.length == 1) { sectext = '0' + sectext };
+  let sectext = '00';
+  if (oDiff.seconds > 0) { sectext = String(oDiff.seconds); }
+  if (sectext.length == 1) { sectext = '0' + sectext };
 
-    let sDuration = hourtext + ':' + mintext + ':' + sectext;
-    oDiff.duration = sDuration;
+  let sDuration = hourtext + ':' + mintext + ':' + sectext;
+  oDiff.duration = sDuration;
 
-    return oDiff;
+  return oDiff;
 }

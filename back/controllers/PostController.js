@@ -27,7 +27,7 @@ module.exports = {
 
     try {
       const foundRegistry = await Post.find({
-        $or: [{name: {$regex: pattern}}, {description: {$regex: pattern}}]
+        $or: [{ name: { $regex: pattern } }, { description: { $regex: pattern } }]
       });
 
       res.json(foundRegistry);

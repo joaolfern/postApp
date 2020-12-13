@@ -6,6 +6,7 @@
     max-width: 340px;
     border-radius: 50px;
     justify-content: space-between;
+    align-items: center;
     margin: 0 auto;
     margin-bottom: 1em;
     overflow-x: hidden;
@@ -21,6 +22,7 @@
     transition: all 1s ease-out;
     transform-origin: left;
     position: absolute;
+    max-width: 60%;
 }
 
 
